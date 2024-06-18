@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Podcast } from "./entities/podcasts.entity";
 
 @Injectable()
@@ -18,5 +18,13 @@ export class PodcastsService {
     };
     this.podcasts.push(newPodcast);
     return newPodcast;
+  }
+
+  findOne(id: number): Podcast {
+    const podcast = this.podcasts.find((podcast) => podcast.id === id);
+    if (!podcast) {
+      throw new NotFoundException(`Podcast with id ${id} not found`);
+    }
+    return podcast;
   }
 }
