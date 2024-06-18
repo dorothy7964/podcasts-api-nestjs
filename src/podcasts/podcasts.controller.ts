@@ -7,7 +7,7 @@ export class PodcastsController {
   constructor(private readonly podcastsService: PodcastsService) {}
 
   @Get()
-  isTest(): string {
+  findAll(): Podcast[] {
     return this.podcastsService.findAll();
   }
 }
