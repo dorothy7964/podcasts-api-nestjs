@@ -56,4 +56,17 @@ export class PodcastsController {
   ): Episode {
     return this.podcastsService.addEpisode(+id, createEpisodeDto);
   }
+
+  @Patch(":id/episodes/:episodeId")
+  updateEpisode(
+    @Param("id") id: number,
+    @Param("episodeId") episodeId: number,
+    @Body() updateEpisodeDto: Partial<Episode>,
+  ): Episode {
+    return this.podcastsService.updateEpisode(
+      +id,
+      +episodeId,
+      updateEpisodeDto,
+    );
+  }
 }

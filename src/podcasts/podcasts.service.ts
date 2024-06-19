@@ -57,4 +57,21 @@ export class PodcastsService {
     podcast.episodes.push(newEpisode);
     return newEpisode;
   }
+
+  updateEpisode(
+    podcastId: number,
+    episodeId: number,
+    updateData: Partial<Episode>,
+  ): Episode {
+    const podcast = this.findOne(podcastId);
+    const episodeIndex = podcast.episodes.findIndex(
+      (ep) => ep.id === episodeId,
+    );
+    if (episodeIndex === -1) {
+      throw new NotFoundException(`Episode with id ${episodeId} not found`);
+    }
+    const updatedEpisode = { ...podcast.episodes[episodeIndex], ...updateData };
+    podcast.episodes[episodeIndex] = updatedEpisode;
+    return updatedEpisode;
+  }
 }
