@@ -10,6 +10,10 @@ import {
 import { Podcast } from "./entities/podcasts.entity";
 import { PodcastsService } from "./podcasts.service";
 import { Episode } from "./entities/episode.entity";
+import { CreatePodcastDto } from "./dtos/create-podcast.dto";
+import { CreateEpisodeDto } from "./dtos/create-episode.dto";
+import { UpdatePodcastDto } from "./dtos/update-podcast.dto";
+import { UpdateEpisodeDto } from "./dtos/update-episode.dto";
 
 @Controller("podcasts")
 export class PodcastsController {
@@ -21,10 +25,7 @@ export class PodcastsController {
   }
 
   @Post()
-  // @Body() 데코레이터는 요청의 본문(body)에서 데이터를 추출
-  createPodcast(
-    @Body() createPodcastDto: Omit<Podcast, "id" | "episodes">,
-  ): Podcast {
+  createPodcast(@Body() createPodcastDto: CreatePodcastDto) {
     return this.podcastsService.createPodcast(createPodcastDto);
   }
 
@@ -36,7 +37,7 @@ export class PodcastsController {
   @Patch(":id")
   updatePodcast(
     @Param("id") id: number,
-    @Body() updatePodcastDto: Partial<Podcast>,
+    @Body() updatePodcastDto: UpdatePodcastDto,
   ): Podcast {
     return this.podcastsService.updatePodcast(+id, updatePodcastDto);
   }
@@ -54,7 +55,7 @@ export class PodcastsController {
   @Post(":id/episodes")
   createEpisode(
     @Param("id") id: number,
-    @Body() createEpisodeDto: Omit<Episode, "id">,
+    @Body() createEpisodeDto: CreateEpisodeDto,
   ): Episode {
     return this.podcastsService.createEpisode(+id, createEpisodeDto);
   }
@@ -63,7 +64,7 @@ export class PodcastsController {
   updateEpisode(
     @Param("id") id: number,
     @Param("episodeId") episodeId: number,
-    @Body() updateEpisodeDto: Partial<Episode>,
+    @Body() updateEpisodeDto: UpdateEpisodeDto,
   ): Episode {
     return this.podcastsService.updateEpisode(
       +id,

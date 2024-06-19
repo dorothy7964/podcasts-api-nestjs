@@ -1,5 +1,5 @@
 export class Episode {
   id: number;
-  title: string;
+  episodeTitle: string;
   duration: number;
 }
