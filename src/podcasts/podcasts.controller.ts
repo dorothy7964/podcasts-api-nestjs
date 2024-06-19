@@ -42,4 +42,9 @@ export class PodcastsController {
   remove(@Param("id") id: number): void {
     return this.podcastsService.remove(+id);
   }
+
+  @Get(":id/episodes")
+  findEpisodes(@Param("id") id: number): Episode[] {
+    return this.podcastsService.findEpisodes(+id);
+  }
 }

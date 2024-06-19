@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Podcast } from "./entities/podcasts.entity";
+import { Episode } from "./entities/episode.entity";
 
 @Injectable()
 export class PodcastsService {
@@ -42,5 +43,10 @@ export class PodcastsService {
       throw new NotFoundException(`Podcast with id ${id} not found`);
     }
     this.podcasts.splice(index, 1);
+  }
+
+  findEpisodes(podcastId: number): Episode[] {
+    const podcast = this.findOne(podcastId);
+    return podcast.episodes;
   }
 }
