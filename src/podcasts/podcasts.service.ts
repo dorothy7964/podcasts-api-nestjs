@@ -6,6 +6,7 @@ import { Episode } from "./entities/episode.entity";
 export class PodcastsService {
   private podcasts: Podcast[] = [];
   private idCounter = 1;
+  private episodeIdCounter = 1;
 
   findAll(): Podcast[] {
     return this.podcasts;
@@ -48,5 +49,12 @@ export class PodcastsService {
   findEpisodes(podcastId: number): Episode[] {
     const podcast = this.findOne(podcastId);
     return podcast.episodes;
+  }
+
+  addEpisode(podcastId: number, episode: Omit<Episode, "id">): Episode {
+    const podcast = this.findOne(podcastId);
+    const newEpisode: Episode = { id: this.episodeIdCounter++, ...episode };
+    podcast.episodes.push(newEpisode);
+    return newEpisode;
   }
 }
