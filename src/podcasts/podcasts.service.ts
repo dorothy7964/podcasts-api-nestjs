@@ -1,20 +1,22 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Podcast } from "./entities/podcasts.entity";
 import { Episode } from "./entities/episode.entity";
+import { CreatePodcastDto } from "./dtos/create-podcast.dto";
+import { UpdatePodcastDto } from "./dtos/update-podcast.dto";
+import { CreateEpisodeDto } from "./dtos/create-episode.dto";
+import { UpdateEpisodeDto } from "./dtos/update-episode.dto";
 
 @Injectable()
 export class PodcastsService {
   private podcasts: Podcast[] = [];
-  private idCounter = 1;
-  private episodeIdCounter = 1;
 
   getAllPodcasts(): Podcast[] {
     return this.podcasts;
   }
 
-  createPodcast(podcast: Omit<Podcast, "id" | "episodes">): Podcast {
+  createPodcast(podcast: CreatePodcastDto): Podcast {
     const newPodcast: Podcast = {
-      id: this.idCounter++,
+      id: Date.now(),
       ...podcast,
       episodes: [],
     };
@@ -30,7 +32,7 @@ export class PodcastsService {
     return podcast;
   }
 
-  updatePodcast(id: number, updateData: Partial<Podcast>): Podcast {
+  updatePodcast(id: number, updateData: UpdatePodcastDto): Podcast {
     const podcast = this.getPodcast(id);
     const updatedPodcast = { ...podcast, ...updateData };
     const index = this.podcasts.findIndex((p) => p.id === id);
@@ -51,9 +53,9 @@ export class PodcastsService {
     return podcast.episodes;
   }
 
-  createEpisode(podcastId: number, episode: Omit<Episode, "id">): Episode {
+  createEpisode(podcastId: number, episode: CreateEpisodeDto): Episode {
     const podcast = this.getPodcast(podcastId);
-    const newEpisode: Episode = { id: this.episodeIdCounter++, ...episode };
+    const newEpisode: Episode = { id: Date.now(), ...episode };
     podcast.episodes.push(newEpisode);
     return newEpisode;
   }
@@ -61,7 +63,7 @@ export class PodcastsService {
   updateEpisode(
     podcastId: number,
     episodeId: number,
-    updateData: Partial<Episode>,
+    updateData: UpdateEpisodeDto,
   ): Episode {
     const podcast = this.getPodcast(podcastId);
     const episodeIndex = podcast.episodes.findIndex(
