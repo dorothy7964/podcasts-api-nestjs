@@ -74,4 +74,15 @@ export class PodcastsService {
     podcast.episodes[episodeIndex] = updatedEpisode;
     return updatedEpisode;
   }
+
+  removeEpisode(podcastId: number, episodeId: number): void {
+    const podcast = this.findOne(podcastId);
+    const episodeIndex = podcast.episodes.findIndex(
+      (ep) => ep.id === episodeId,
+    );
+    if (episodeIndex === -1) {
+      throw new NotFoundException(`Episode with id ${episodeId} not found`);
+    }
+    podcast.episodes.splice(episodeIndex, 1);
+  }
 }

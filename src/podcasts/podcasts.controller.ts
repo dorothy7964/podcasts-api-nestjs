@@ -69,4 +69,12 @@ export class PodcastsController {
       updateEpisodeDto,
     );
   }
+
+  @Delete(":id/episodes/:episodeId")
+  removeEpisode(
+    @Param("id") id: number,
+    @Param("episodeId") episodeId: number,
+  ): void {
+    return this.podcastsService.removeEpisode(+id, +episodeId);
+  }
 }
