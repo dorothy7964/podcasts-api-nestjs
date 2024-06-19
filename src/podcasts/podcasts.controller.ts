@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from "@nestjs/common";
 import { Podcast } from "./entities/podcasts.entity";
 import { PodcastsService } from "./podcasts.service";
 
@@ -28,5 +36,10 @@ export class PodcastsController {
     @Body() updatePodcastDto: Partial<Podcast>,
   ): Podcast {
     return this.podcastsService.update(+id, updatePodcastDto);
+  }
+
+  @Delete(":id")
+  remove(@Param("id") id: number): void {
+    return this.podcastsService.remove(+id);
   }
 }

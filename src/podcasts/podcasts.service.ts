@@ -35,4 +35,12 @@ export class PodcastsService {
     this.podcasts[index] = updatedPodcast;
     return updatedPodcast;
   }
+
+  remove(id: number): void {
+    const index = this.podcasts.findIndex((podcast) => podcast.id === id);
+    if (index === -1) {
+      throw new NotFoundException(`Podcast with id ${id} not found`);
+    }
+    this.podcasts.splice(index, 1);
+  }
 }
