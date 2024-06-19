@@ -27,4 +27,12 @@ export class PodcastsService {
     }
     return podcast;
   }
+
+  update(id: number, updateData: Partial<Podcast>): Podcast {
+    const podcast = this.findOne(id);
+    const updatedPodcast = { ...podcast, ...updateData };
+    const index = this.podcasts.findIndex((p) => p.id === id);
+    this.podcasts[index] = updatedPodcast;
+    return updatedPodcast;
+  }
 }
