@@ -46,13 +46,18 @@ export class PodcastsController {
   deletePodcast(@Param("id") id: number): void {
     return this.podcastsService.deletePodcast(+id);
   }
+}
 
-  @Get(":id/episodes")
+@Controller("/podcasts/:id")
+export class EpisodeController {
+  constructor(private readonly podcastsService: PodcastsService) {}
+
+  @Get("/episodes")
   getEpisodes(@Param("id") id: number): Episode[] {
     return this.podcastsService.getEpisodes(+id);
   }
 
-  @Post(":id/episodes")
+  @Post("/episodes")
   createEpisode(
     @Param("id") id: number,
     @Body() createEpisodeDto: CreateEpisodeDto,
@@ -60,7 +65,7 @@ export class PodcastsController {
     return this.podcastsService.createEpisode(+id, createEpisodeDto);
   }
 
-  @Patch(":id/episodes/:episodeId")
+  @Patch("/episodes/:episodeId")
   updateEpisode(
     @Param("id") id: number,
     @Param("episodeId") episodeId: number,
@@ -73,7 +78,7 @@ export class PodcastsController {
     );
   }
 
-  @Delete(":id/episodes/:episodeId")
+  @Delete("/episodes/:episodeId")
   deleteEpisode(
     @Param("id") id: number,
     @Param("episodeId") episodeId: number,
