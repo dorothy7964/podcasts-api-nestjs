@@ -8,11 +8,11 @@ export class PodcastsService {
   private idCounter = 1;
   private episodeIdCounter = 1;
 
-  findAll(): Podcast[] {
+  getAllPodcasts(): Podcast[] {
     return this.podcasts;
   }
 
-  create(podcast: Omit<Podcast, "id" | "episodes">): Podcast {
+  createPodcast(podcast: Omit<Podcast, "id" | "episodes">): Podcast {
     const newPodcast: Podcast = {
       id: this.idCounter++,
       ...podcast,
@@ -22,7 +22,7 @@ export class PodcastsService {
     return newPodcast;
   }
 
-  findOne(id: number): Podcast {
+  getPodcast(id: number): Podcast {
     const podcast = this.podcasts.find((podcast) => podcast.id === id);
     if (!podcast) {
       throw new NotFoundException(`Podcast with id ${id} not found`);
@@ -30,15 +30,15 @@ export class PodcastsService {
     return podcast;
   }
 
-  update(id: number, updateData: Partial<Podcast>): Podcast {
-    const podcast = this.findOne(id);
+  updatePodcast(id: number, updateData: Partial<Podcast>): Podcast {
+    const podcast = this.getPodcast(id);
     const updatedPodcast = { ...podcast, ...updateData };
     const index = this.podcasts.findIndex((p) => p.id === id);
     this.podcasts[index] = updatedPodcast;
     return updatedPodcast;
   }
 
-  remove(id: number): void {
+  deletePodcast(id: number): void {
     const index = this.podcasts.findIndex((podcast) => podcast.id === id);
     if (index === -1) {
       throw new NotFoundException(`Podcast with id ${id} not found`);
@@ -46,13 +46,13 @@ export class PodcastsService {
     this.podcasts.splice(index, 1);
   }
 
-  findEpisodes(podcastId: number): Episode[] {
-    const podcast = this.findOne(podcastId);
+  getEpisodes(podcastId: number): Episode[] {
+    const podcast = this.getPodcast(podcastId);
     return podcast.episodes;
   }
 
-  addEpisode(podcastId: number, episode: Omit<Episode, "id">): Episode {
-    const podcast = this.findOne(podcastId);
+  createEpisode(podcastId: number, episode: Omit<Episode, "id">): Episode {
+    const podcast = this.getPodcast(podcastId);
     const newEpisode: Episode = { id: this.episodeIdCounter++, ...episode };
     podcast.episodes.push(newEpisode);
     return newEpisode;
@@ -63,7 +63,7 @@ export class PodcastsService {
     episodeId: number,
     updateData: Partial<Episode>,
   ): Episode {
-    const podcast = this.findOne(podcastId);
+    const podcast = this.getPodcast(podcastId);
     const episodeIndex = podcast.episodes.findIndex(
       (ep) => ep.id === episodeId,
     );
@@ -75,8 +75,8 @@ export class PodcastsService {
     return updatedEpisode;
   }
 
-  removeEpisode(podcastId: number, episodeId: number): void {
-    const podcast = this.findOne(podcastId);
+  deleteEpisode(podcastId: number, episodeId: number): void {
+    const podcast = this.getPodcast(podcastId);
     const episodeIndex = podcast.episodes.findIndex(
       (ep) => ep.id === episodeId,
     );

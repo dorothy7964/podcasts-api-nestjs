@@ -16,45 +16,47 @@ export class PodcastsController {
   constructor(private readonly podcastsService: PodcastsService) {}
 
   @Get()
-  findAll(): Podcast[] {
-    return this.podcastsService.findAll();
+  getAllPodcasts(): Podcast[] {
+    return this.podcastsService.getAllPodcasts();
   }
 
   @Post()
   // @Body() 데코레이터는 요청의 본문(body)에서 데이터를 추출
-  create(@Body() createPodcastDto: Omit<Podcast, "id" | "episodes">): Podcast {
-    return this.podcastsService.create(createPodcastDto);
+  createPodcast(
+    @Body() createPodcastDto: Omit<Podcast, "id" | "episodes">,
+  ): Podcast {
+    return this.podcastsService.createPodcast(createPodcastDto);
   }
 
   @Get(":id")
-  findOne(@Param("id") id: number): Podcast {
-    return this.podcastsService.findOne(+id);
+  getPodcast(@Param("id") id: number): Podcast {
+    return this.podcastsService.getPodcast(+id);
   }
 
   @Patch(":id")
-  update(
+  updatePodcast(
     @Param("id") id: number,
     @Body() updatePodcastDto: Partial<Podcast>,
   ): Podcast {
-    return this.podcastsService.update(+id, updatePodcastDto);
+    return this.podcastsService.updatePodcast(+id, updatePodcastDto);
   }
 
   @Delete(":id")
-  remove(@Param("id") id: number): void {
-    return this.podcastsService.remove(+id);
+  deletePodcast(@Param("id") id: number): void {
+    return this.podcastsService.deletePodcast(+id);
   }
 
   @Get(":id/episodes")
-  findEpisodes(@Param("id") id: number): Episode[] {
-    return this.podcastsService.findEpisodes(+id);
+  getEpisodes(@Param("id") id: number): Episode[] {
+    return this.podcastsService.getEpisodes(+id);
   }
 
   @Post(":id/episodes")
-  addEpisode(
+  createEpisode(
     @Param("id") id: number,
     @Body() createEpisodeDto: Omit<Episode, "id">,
   ): Episode {
-    return this.podcastsService.addEpisode(+id, createEpisodeDto);
+    return this.podcastsService.createEpisode(+id, createEpisodeDto);
   }
 
   @Patch(":id/episodes/:episodeId")
@@ -71,10 +73,10 @@ export class PodcastsController {
   }
 
   @Delete(":id/episodes/:episodeId")
-  removeEpisode(
+  deleteEpisode(
     @Param("id") id: number,
     @Param("episodeId") episodeId: number,
   ): void {
-    return this.podcastsService.removeEpisode(+id, +episodeId);
+    return this.podcastsService.deleteEpisode(+id, +episodeId);
   }
 }
