@@ -1,3 +1,14 @@
-import { Podcast } from "../entities/podcasts.entity";
+import { Field, InputType, PartialType } from "@nestjs/graphql";
+import { CreatePodcastDto } from "./create-podcast.dto";
 
-export class UpdatePodcastDto implements Partial<Podcast> {}
+@InputType()
+class UpdatePodcastInputType extends PartialType(CreatePodcastDto) {}
+
+@InputType()
+export class UpdatePodcastDto {
+  @Field(() => Number)
+  id: number;
+
+  @Field(() => UpdatePodcastInputType)
+  updateData: UpdatePodcastInputType;
+}

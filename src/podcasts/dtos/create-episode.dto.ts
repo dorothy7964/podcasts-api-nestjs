@@ -1,10 +1,14 @@
+import { Field, InputType, ObjectType, OmitType } from "@nestjs/graphql";
 import { Episode } from "../entities/episode.entity";
-import { CreatePodcastDto } from "./create-podcast.dto";
 
-export class CreateEpisodeDto
-  extends CreatePodcastDto
-  implements Omit<Episode, "id">
-{
-  episodeTitle: string;
-  duration: number;
+@InputType()
+class CreateEpisodeInputType extends OmitType(Episode, ["id"]) {}
+
+@InputType()
+export class CreateEpisodeDto {
+  @Field(() => Number)
+  podcastId: number;
+
+  @Field(() => CreateEpisodeInputType)
+  episode: CreateEpisodeInputType;
 }

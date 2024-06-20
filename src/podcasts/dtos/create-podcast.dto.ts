@@ -1,7 +1,5 @@
+import { InputType, OmitType } from "@nestjs/graphql";
 import { Podcast } from "../entities/podcasts.entity";
 
-export class CreatePodcastDto implements Omit<Podcast, "id" | "episodes"> {
-  title: string;
-  category: string;
-  rating: number;
-}
+@InputType()
+export class CreatePodcastDto extends OmitType(Podcast, ["id", "episodes"]) {}
