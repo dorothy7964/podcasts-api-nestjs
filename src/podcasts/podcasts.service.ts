@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { CreatePodcastDto } from "./dtos/create-podcast.dto";
+import { CreatePodcastInput } from "./dtos/create-podcast.dto";
 import { Podcast } from "./entities/podcasts.entity";
-import { UpdatePodcastDto } from "./dtos/update-podcast.dto";
+import { UpdatePodcastInput } from "./dtos/update-podcast.dto";
 import { Episode } from "./entities/episode.entity";
-import { CreateEpisodeDto } from "./dtos/create-episode.dto";
-import { UpdateEpisodeDto } from "./dtos/update-episode.dto";
-import { InfoEpisodeInput } from "./dtos/info-episode.dto ";
+import { CreateEpisodeInput } from "./dtos/create-episode.dto";
+import { UpdateEpisodeInput } from "./dtos/update-episode.dto";
+import { SearchEpisodeInput } from "./dtos/search-episode.dto ";
 
 @Injectable()
 export class PodcastsService {
@@ -16,7 +16,7 @@ export class PodcastsService {
     return this.podcasts;
   }
 
-  createPodcast(podcast: CreatePodcastDto): Podcast {
+  createPodcast(podcast: CreatePodcastInput): Podcast {
     const newPodcast: Podcast = {
       id: Date.now(),
       ...podcast,
@@ -34,7 +34,7 @@ export class PodcastsService {
     return podcast;
   }
 
-  updatePodcast({ id, updateData }: UpdatePodcastDto): Podcast {
+  updatePodcast({ id, updateData }: UpdatePodcastInput): Podcast {
     const podcast = this.getPodcast(id);
     const updatedPodcast = { ...podcast, ...updateData };
     const index = this.podcasts.findIndex((p) => p.id === id);
@@ -57,14 +57,18 @@ export class PodcastsService {
     return podcast.episodes;
   }
 
-  createEpisode({ podcastId, episode }: CreateEpisodeDto): Episode {
+  createEpisode({ podcastId, episode }: CreateEpisodeInput): Episode {
     const podcast = this.getPodcast(podcastId);
     const newEpisode: Episode = { id: Date.now(), ...episode };
     podcast.episodes.push(newEpisode);
     return newEpisode;
   }
 
-  updateEpisode({ podcastId, episodeId, episode }: UpdateEpisodeDto): Episode {
+  updateEpisode({
+    podcastId,
+    episodeId,
+    episode,
+  }: UpdateEpisodeInput): Episode {
     const podcast = this.getPodcast(podcastId);
     const episodeIndex = podcast.episodes.findIndex(
       (ep) => ep.id === episodeId,

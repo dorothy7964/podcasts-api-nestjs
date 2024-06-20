@@ -1,13 +1,10 @@
-import { ObjectType, Field, Int, InputType } from "@nestjs/graphql";
-import { IsNumber, IsString, isString } from "class-validator";
+import { Field, InputType, ObjectType } from "@nestjs/graphql";
+import { IsNumber, IsString } from "class-validator";
+import { CoreEntity } from "src/common/entities/core.entity";
 
 @InputType("EpisodeInput", { isAbstract: true })
 @ObjectType()
-export class Episode {
-  @Field(() => Number)
-  @IsNumber()
-  id: number;
-
+export class Episode extends CoreEntity {
   @Field()
   @IsNumber()
   title: string;

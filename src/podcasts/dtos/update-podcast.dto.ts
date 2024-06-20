@@ -1,12 +1,13 @@
-import { Field, InputType, PartialType } from "@nestjs/graphql";
-import { CreatePodcastDto } from "./create-podcast.dto";
+import { Field, InputType, ObjectType, PartialType } from "@nestjs/graphql";
+import { CreatePodcastInput } from "./create-podcast.dto";
 import { IsNumber } from "class-validator";
+import { CoreOutput } from "src/common/dtos/output.dto";
 
 @InputType()
-class UpdatePodcastInputType extends PartialType(CreatePodcastDto) {}
+class UpdatePodcastInputType extends PartialType(CreatePodcastInput) {}
 
 @InputType()
-export class UpdatePodcastDto {
+export class UpdatePodcastInput {
   @Field(() => Number)
   @IsNumber()
   id: number;
@@ -14,3 +15,6 @@ export class UpdatePodcastDto {
   @Field(() => UpdatePodcastInputType)
   updateData: UpdatePodcastInputType;
 }
+
+@ObjectType()
+export class UpdatePodcastOutput extends PartialType(CoreOutput) {}

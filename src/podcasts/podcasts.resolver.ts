@@ -1,13 +1,13 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { CreatePodcastDto } from "./dtos/create-podcast.dto";
-import { InfoPodcastInput } from "./dtos/info-podcast.dto";
-import { UpdatePodcastDto } from "./dtos/update-podcast.dto";
+import { CreatePodcastInput } from "./dtos/create-podcast.dto";
+import { SearchPodcastInput } from "./dtos/search-podcast.dto";
+import { UpdatePodcastInput } from "./dtos/update-podcast.dto";
 import { Podcast } from "./entities/podcasts.entity";
 import { PodcastsService } from "./podcasts.service";
 import { Episode } from "./entities/episode.entity";
-import { CreateEpisodeDto } from "./dtos/create-episode.dto";
-import { UpdateEpisodeDto } from "./dtos/update-episode.dto";
-import { InfoEpisodeInput } from "./dtos/info-episode.dto ";
+import { CreateEpisodeInput } from "./dtos/create-episode.dto";
+import { UpdateEpisodeInput } from "./dtos/update-episode.dto";
+import { SearchEpisodeInput } from "./dtos/search-episode.dto ";
 
 @Resolver(() => Podcast)
 export class PodcastResolver {
@@ -19,23 +19,23 @@ export class PodcastResolver {
   }
 
   @Mutation(() => Podcast)
-  createPodcast(@Args("input") createPodcastDto: CreatePodcastDto) {
-    return this.podcastsService.createPodcast(createPodcastDto);
+  createPodcast(@Args("input") CreatePodcastInput: CreatePodcastInput) {
+    return this.podcastsService.createPodcast(CreatePodcastInput);
   }
 
   @Query(() => Podcast)
-  getPodcast(@Args() infoPodcastInput: InfoPodcastInput) {
-    return this.podcastsService.getPodcast(infoPodcastInput.podcastId);
+  getPodcast(@Args() { id }: SearchPodcastInput) {
+    return this.podcastsService.getPodcast(id);
   }
 
   @Mutation(() => Podcast)
-  updatePodcast(@Args("input") updatePodcastDto: UpdatePodcastDto) {
-    return this.podcastsService.updatePodcast(updatePodcastDto);
+  updatePodcast(@Args("input") UpdatePodcastInput: UpdatePodcastInput) {
+    return this.podcastsService.updatePodcast(UpdatePodcastInput);
   }
 
   @Mutation(() => Boolean)
-  deletePodcast(@Args("input") { podcastId }: InfoPodcastInput) {
-    return this.podcastsService.deletePodcast(podcastId);
+  deletePodcast(@Args("input") { id }: SearchPodcastInput) {
+    return this.podcastsService.deletePodcast(id);
   }
 }
 
@@ -44,17 +44,17 @@ export class EpisodeResolver {
   constructor(private readonly podcastsService: PodcastsService) {}
 
   @Mutation(() => Episode)
-  createEpisode(@Args("input") createEpisodeDto: CreateEpisodeDto) {
-    return this.podcastsService.createEpisode(createEpisodeDto);
+  createEpisode(@Args("input") CreateEpisodeInput: CreateEpisodeInput) {
+    return this.podcastsService.createEpisode(CreateEpisodeInput);
   }
 
   @Mutation(() => Episode)
-  updateEpisode(@Args("input") updateEpisodeDto: UpdateEpisodeDto) {
-    return this.podcastsService.updateEpisode(updateEpisodeDto);
+  updateEpisode(@Args("input") UpdateEpisodeInput: UpdateEpisodeInput) {
+    return this.podcastsService.updateEpisode(UpdateEpisodeInput);
   }
 
   @Mutation(() => Boolean)
-  deleteEpisode(@Args("input") { podcastId, episodeId }: InfoEpisodeInput) {
+  deleteEpisode(@Args("input") { podcastId, episodeId }: SearchEpisodeInput) {
     return this.podcastsService.deleteEpisode(podcastId, episodeId);
   }
 }
