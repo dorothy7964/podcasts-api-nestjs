@@ -2,15 +2,18 @@ import {
   Field,
   InputType,
   ObjectType,
-  OmitType,
   PartialType,
+  PickType,
 } from "@nestjs/graphql";
-import { Episode } from "../entities/episode.entity";
 import { IsNumber } from "class-validator";
 import { CoreOutput } from "src/common/dtos/output.dto";
+import { Episode } from "../entities/episode.entity";
 
 @InputType()
-class CreateEpisodeInputType extends OmitType(Episode, ["id"]) {}
+export class CreateEpisodeInputType extends PickType(Episode, [
+  "title",
+  "description",
+]) {}
 
 @InputType()
 export class CreateEpisodeInput {
@@ -19,7 +22,7 @@ export class CreateEpisodeInput {
   podcastId: number;
 
   @Field(() => CreateEpisodeInputType)
-  episode: CreateEpisodeInputType;
+  createEpisode: CreateEpisodeInputType;
 }
 
 @ObjectType()

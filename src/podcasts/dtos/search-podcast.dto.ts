@@ -1,16 +1,15 @@
-import {
-  ArgsType,
-  InputType,
-  ObjectType,
-  PartialType,
-  PickType,
-} from "@nestjs/graphql";
-import { Podcast } from "../entities/podcasts.entity";
+import { ArgsType, Field, ObjectType, PartialType } from "@nestjs/graphql";
 import { CoreOutput } from "src/common/dtos/output.dto";
+import { Podcast } from "../entities/podcast.entity";
 
-@InputType("searchPodcastInput", { isAbstract: true })
 @ArgsType()
-export class SearchPodcastInput extends PickType(Podcast, ["id"]) {}
+export class SearchPodcastInput {
+  @Field(() => Number)
+  podcastId: number;
+}
 
 @ObjectType()
-export class SearchPodcastOutput extends PartialType(CoreOutput) {}
+export class SearchPodcastOutput extends PartialType(CoreOutput) {
+  @Field(() => Podcast, { nullable: true })
+  podcast?: Podcast;
+}
