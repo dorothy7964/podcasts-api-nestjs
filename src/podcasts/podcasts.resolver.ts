@@ -4,6 +4,10 @@ import {
   CreatePodcastOutput,
 } from "./dtos/create-podcast.dto";
 import {
+  DeletePodcastInput,
+  DeletePodcastOutput,
+} from "./dtos/delete-podcast.dto.";
+import {
   SearchPodcastInput,
   SearchPodcastOutput,
 } from "./dtos/search-podcast.dto";
@@ -13,27 +17,6 @@ import {
 } from "./dtos/update-podcast.dto";
 import { Podcast } from "./entities/podcast.entity";
 import { PodcastsService } from "./podcasts.service";
-import { Episode } from "./entities/episode.entity";
-import {
-  CreateEpisodeInput,
-  CreateEpisodeOutput,
-} from "./dtos/create-episode.dto";
-import {
-  UpdateEpisodeInput,
-  UpdateEpisodeOutput,
-} from "./dtos/update-episode.dto";
-import {
-  SearchEpisodeInput,
-  SearchEpisodeOutput,
-} from "./dtos/search-episode.dto ";
-import {
-  DeletePodcastInput,
-  DeletePodcastOutput,
-} from "./dtos/delete-podcast.dto.";
-import {
-  DeleteEpisodeInput,
-  DeleteEpisodeOutput,
-} from "./dtos/delete-episode.dto ";
 
 @Resolver(() => Podcast)
 export class PodcastResolver {
@@ -70,34 +53,5 @@ export class PodcastResolver {
     @Args() deletePodcastInput: DeletePodcastInput,
   ): Promise<DeletePodcastOutput> {
     return this.podcastsService.deletePodcast(deletePodcastInput);
-  }
-}
-
-@Resolver(() => Episode)
-export class EpisodeResolver {
-  constructor(private readonly podcastsService: PodcastsService) {}
-
-  @Mutation(() => CreateEpisodeOutput)
-  createEpisode(
-    @Args("input") createPodcastInput: CreateEpisodeInput,
-  ): Promise<CreateEpisodeOutput> {
-    return this.podcastsService.createEpisode(createPodcastInput);
-  }
-
-  @Query(() => SearchEpisodeOutput)
-  getEpisodes(
-    @Args() searchEpisodeInput: SearchEpisodeInput,
-  ): Promise<SearchEpisodeOutput> {
-    return this.podcastsService.getEpisodes(searchEpisodeInput);
-  }
-
-  @Mutation(() => UpdateEpisodeOutput)
-  updateEpisode(@Args("input") updateEpisodeInput: UpdateEpisodeInput) {
-    return this.podcastsService.updateEpisode(updateEpisodeInput);
-  }
-
-  @Mutation(() => DeleteEpisodeOutput)
-  deleteEpisode(@Args() deleteEpisodeInput: DeleteEpisodeInput) {
-    return this.podcastsService.deleteEpisode(deleteEpisodeInput);
   }
 }

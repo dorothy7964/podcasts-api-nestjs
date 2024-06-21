@@ -16,12 +16,25 @@
 
 ```
 src/
+├── common/
+│   ├── dtos/
+│   │   ├── output.dto.ts
+│   ├── entities/
+│   │   ├── core.entity.ts
+│   ├── common.module.ts
 ├── podcasts/
+│   ├── dtos/
+│   │   ├── create-episode.dto.ts
+│   │   ├── create-podcast.dto.ts
+│   │   ├── search-episode.dto.ts
+│   │   ├── search-podcast.dto.ts
+│   │   ├── update-episode.dto.ts
+│   │   ├── update-podcast.dto.ts
 │   ├── entities/
 │   │   ├── podcast.entity.ts
 │   │   └── episode.entity.ts
-│   ├── podcasts.controller.ts
 │   ├── podcasts.module.ts
+│   ├── podcasts.resolver.ts
 │   └── podcasts.service.ts
 ├── app.module.ts
 └── main.ts

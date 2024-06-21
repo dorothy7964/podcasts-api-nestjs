@@ -1,11 +1,12 @@
-import { Module } from "@nestjs/common";
-import { PodcastsModule } from "./podcasts/podcasts.module";
-import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { GraphQLModule } from "@nestjs/graphql";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Podcast } from "./podcasts/entities/podcast.entity";
-import { Episode } from "./podcasts/entities/episode.entity";
-import { ConfigModule } from "@nestjs/config";
+import { PodcastsModule } from "./podcasts/podcasts.module";
+import { Episode } from "./episodess/entities/episode.entity";
+import { EpisodesModule } from "./episodess/episodes.module";
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ConfigModule } from "@nestjs/config";
       autoSchemaFile: true,
     }),
     PodcastsModule,
+    EpisodesModule,
   ],
 })
 export class AppModule {}
