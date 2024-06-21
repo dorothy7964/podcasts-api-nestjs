@@ -3,10 +3,10 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Podcast } from "./podcasts/entities/podcast.entity";
-import { PodcastsModule } from "./podcasts/podcasts.module";
-import { Episode } from "./episodes/entities/episode.entity";
-import { EpisodesModule } from "./episodes/episodes.module";
+import { Podcast } from "./podcast/entities/podcast.entity";
+import { Episode } from "./episode/entities/episode.entity";
+import { PodcastsModule } from "./podcast/podcasts.module";
+import { EpisodesModule } from "./episode/episodes.module";
 
 @Module({
   imports: [

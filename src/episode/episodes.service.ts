@@ -18,7 +18,7 @@ import {
   UpdateEpisodeOutput,
 } from "./dtos/update-episode.dto";
 import { Episode } from "./entities/episode.entity";
-import { Podcast } from "src/podcasts/entities/podcast.entity";
+import { Podcast } from "src/podcast/entities/podcast.entity";
 
 @Injectable()
 export class EpisodesService {
