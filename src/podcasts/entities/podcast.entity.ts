@@ -1,7 +1,7 @@
 import { Field, InputType, ObjectType } from "@nestjs/graphql";
 import { IsNumber, IsString } from "class-validator";
 import { CoreEntity } from "src/common/entities/core.entity";
-import { Episode } from "src/episodess/entities/episode.entity";
+import { Episode } from "src/episodes/entities/episode.entity";
 import { Column, Entity, OneToMany } from "typeorm";
 
 @InputType({ isAbstract: true })

@@ -5,8 +5,8 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Podcast } from "./podcasts/entities/podcast.entity";
 import { PodcastsModule } from "./podcasts/podcasts.module";
-import { Episode } from "./episodess/entities/episode.entity";
-import { EpisodesModule } from "./episodess/episodes.module";
+import { Episode } from "./episodes/entities/episode.entity";
+import { EpisodesModule } from "./episodes/episodes.module";
 
 @Module({
   imports: [

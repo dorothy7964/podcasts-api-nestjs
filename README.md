@@ -22,17 +22,25 @@ src/
 │   ├── entities/
 │   │   ├── core.entity.ts
 │   ├── common.module.ts
-├── podcasts/
+├── episodes/
 │   ├── dtos/
 │   │   ├── create-episode.dto.ts
-│   │   ├── create-podcast.dto.ts
+│   │   ├── delete-episode.dto.ts
 │   │   ├── search-episode.dto.ts
-│   │   ├── search-podcast.dto.ts
 │   │   ├── update-episode.dto.ts
+│   ├── entities/
+│   │   └── episode.entity.ts
+│   ├── episodes.module.ts
+│   ├── episodes.resolver.ts
+│   └── episodes.service.ts
+├── podcasts/
+│   ├── dtos/
+│   │   ├── create-podcast.dto.ts
+│   │   ├── delete-podcast.dto.ts
+│   │   ├── search-podcast.dto.ts
 │   │   ├── update-podcast.dto.ts
 │   ├── entities/
 │   │   ├── podcast.entity.ts
-│   │   └── episode.entity.ts
 │   ├── podcasts.module.ts
 │   ├── podcasts.resolver.ts
 │   └── podcasts.service.ts
