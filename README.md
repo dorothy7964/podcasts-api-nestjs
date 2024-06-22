@@ -22,7 +22,7 @@ src/
 │   ├── entities/
 │   │   ├── core.entity.ts
 │   ├── common.module.ts
-├── episodes/
+├── episode/
 │   ├── dtos/
 │   │   ├── create-episode.dto.ts
 │   │   ├── delete-episode.dto.ts
@@ -33,7 +33,7 @@ src/
 │   ├── episodes.module.ts
 │   ├── episodes.resolver.ts
 │   └── episodes.service.ts
-├── podcasts/
+├── podcast/
 │   ├── dtos/
 │   │   ├── create-podcast.dto.ts
 │   │   ├── delete-podcast.dto.ts
