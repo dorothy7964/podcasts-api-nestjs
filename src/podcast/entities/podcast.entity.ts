@@ -8,19 +8,19 @@ import { Column, Entity, OneToMany } from "typeorm";
 @ObjectType()
 @Entity()
 export class Podcast extends CoreEntity {
+  @Column()
   @Field(() => String)
   @IsString()
-  @Column()
   title: string;
 
+  @Column()
   @Field(() => String)
   @IsString()
-  @Column()
   category: string;
 
+  @Column()
   @Field(() => Number)
   @IsNumber()
-  @Column()
   rating?: number;
 
   @Field(() => [Episode], { nullable: true })

@@ -7,7 +7,9 @@ import { Podcast } from "./podcast/entities/podcast.entity";
 import { Episode } from "./episode/entities/episode.entity";
 import { PodcastsModule } from "./podcast/podcasts.module";
 import { EpisodesModule } from "./episode/episodes.module";
+import { UsersModule } from "./users/users.module";
 import * as Joi from "joi";
+import { User } from "./users/entities/user.entity";
 
 @Module({
   imports: [
@@ -33,7 +35,7 @@ import * as Joi from "joi";
       database: process.env.DB_DATABASE,
       synchronize: process.env.NODE_ENV !== "prod",
       logging: process.env.NODE_ENV !== "prod",
-      entities: [Podcast, Episode],
+      entities: [Podcast, Episode, User],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -41,6 +43,7 @@ import * as Joi from "joi";
     }),
     PodcastsModule,
     EpisodesModule,
+    UsersModule,
   ],
 })
 export class AppModule {}

@@ -5,16 +5,16 @@ import { CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 @ObjectType()
 @Entity()
 export class CoreEntity {
+  @PrimaryGeneratedColumn()
   @Field(() => Number)
   @IsNumber()
-  @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => Date)
   @CreateDateColumn()
+  @Field(() => Date)
   createAt: Date;
 
-  @Field(() => Date)
   @CreateDateColumn()
+  @Field(() => Date)
   updateAt: Date;
 }

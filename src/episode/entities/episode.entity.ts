@@ -8,14 +8,14 @@ import { Column, Entity, ManyToOne } from "typeorm";
 @ObjectType()
 @Entity()
 export class Episode extends CoreEntity {
+  @Column()
   @Field()
   @IsNumber()
-  @Column()
   title: string;
 
+  @Column()
   @Field()
   @IsString()
-  @Column()
   description: string;
 
   @Field(() => Podcast)

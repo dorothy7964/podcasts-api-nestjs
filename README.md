@@ -44,6 +44,14 @@ src/
 │   ├── podcasts.module.ts
 │   ├── podcasts.resolver.ts
 │   └── podcasts.service.ts
+├── users/
+│   ├── dtos/
+│   │   ├── create-account.dto.ts
+│   ├── entities/
+│   │   ├── user.entity.ts
+│   ├── users.module.ts
+│   ├── users.resolver.ts
+│   └── users.service.ts
 ├── app.module.ts
 └── main.ts
 ```
