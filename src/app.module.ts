@@ -10,6 +10,7 @@ import { EpisodesModule } from "./episode/episodes.module";
 import { UsersModule } from "./users/users.module";
 import * as Joi from "joi";
 import { User } from "./users/entities/user.entity";
+import { JwtModule } from "./jwt/jwt.module";
 
 @Module({
   imports: [
@@ -41,6 +42,9 @@ import { User } from "./users/entities/user.entity";
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
+    }),
+    JwtModule.forRoot({
+      privateKey: process.env.PRIVATE_KEY,
     }),
     PodcastsModule,
     EpisodesModule,
