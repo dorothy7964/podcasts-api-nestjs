@@ -3,8 +3,8 @@ import { JwtModuleOptions } from "./jwt.interfaces";
 import { JwtService } from "./jwt.service";
 import { CONFIG_OPTIONS } from "./jwt.constants";
 
-@Global()
 @Module({})
+@Global()
 export class JwtModule {
   static forRoot(options: JwtModuleOptions): DynamicModule {
     return {
