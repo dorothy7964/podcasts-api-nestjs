@@ -6,12 +6,15 @@ import {
   CreateAccountOutput,
 } from "./dtos/create-account.dto";
 import { LoginInput, LoginOutput } from "./dtos/login.dto";
+import { UseGuards } from "@nestjs/common";
+import { AuthGuard } from "src/auth/auth.guard";
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private readonly userService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Query(() => User)
+  @UseGuards(AuthGuard)
   me(@Context() context) {
     if (!context.user) {
       return;
@@ -21,11 +24,11 @@ export class UsersResolver {
 
   @Mutation(() => CreateAccountOutput)
   createAccount(@Args("input") createAccountInput: CreateAccountInput) {
-    return this.userService.createAccount(createAccountInput);
+    return this.usersService.createAccount(createAccountInput);
   }
 
   @Mutation(() => LoginOutput)
   login(@Args("input") loginInput: LoginInput) {
-    return this.userService.login(loginInput);
+    return this.usersService.login(loginInput);
   }
 }
