@@ -9,6 +9,7 @@ import { LoginInput, LoginOutput } from "./dtos/login.dto";
 import { UseGuards } from "@nestjs/common";
 import { AuthGuard } from "src/auth/auth.guard";
 import { AuthUser } from "src/auth/auth-user.decorator";
+import { UserProfileInput } from "./dtos/user-profile.dto";
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -18,6 +19,11 @@ export class UsersResolver {
   @UseGuards(AuthGuard)
   me(@AuthUser() authUser: User) {
     return authUser;
+  }
+
+  @Query(() => User)
+  seeProfile(@Args() { userId }: UserProfileInput) {
+    return this.usersService.findById(userId);
   }
 
   @Mutation(() => CreateAccountOutput)
