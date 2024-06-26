@@ -8,6 +8,7 @@ import {
 } from "./dtos/create-account.dto";
 import { LoginInput, LoginOutput } from "./dtos/login.dto";
 import { User } from "./entities/user.entity";
+import { EditProfileInput, EditProfileOutput } from "./dtos/edit-profile.dto";
 
 @Injectable()
 export class UsersService {
@@ -39,7 +40,10 @@ export class UsersService {
 
   async login({ email, password }: LoginInput): Promise<LoginOutput> {
     try {
-      const user = await this.users.findOne({ where: { email } });
+      const user = await this.users.findOne({
+        where: { email },
+        select: ["id", "password"],
+      });
       if (!user) {
         return {
           ok: false,
@@ -66,5 +70,26 @@ export class UsersService {
 
   async findById(id: number): Promise<User> {
     return this.users.findOne({ where: { id } });
+  }
+
+  async editProfile(
+    userId: number,
+    { email, password }: EditProfileInput,
+  ): Promise<EditProfileOutput> {
+    const user = await this.users.findOne({ where: { id: userId } });
+    try {
+      if (email) {
+        user.email = email;
+      }
+      if (password) {
+        user.password = password;
+      }
+      await this.users.save(user);
+      return {
+        ok: true,
+      };
+    } catch (error) {
+      return { ok: false, error: "Could not update profile." };
+    }
   }
 }
