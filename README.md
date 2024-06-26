@@ -16,6 +16,10 @@
 
 ```
 src/
+├── auth/
+│   ├── auth-user.decorator.ts
+│   ├── auth.guard.ts
+│   └── auth.module.ts
 ├── common/
 │   ├── dtos/
 │   │   ├── output.dto.ts
@@ -33,6 +37,12 @@ src/
 │   ├── episodes.module.ts
 │   ├── episodes.resolver.ts
 │   └── episodes.service.ts
+├── jwt/
+│   ├── jwt.constants.ts
+│   ├── jwt.interfaces.ts
+│   └── jwt.middleware.ts
+│   ├── jwt.module.ts
+│   └── jwt.service.ts
 ├── podcast/
 │   ├── dtos/
 │   │   ├── create-podcast.dto.ts
@@ -47,6 +57,9 @@ src/
 ├── users/
 │   ├── dtos/
 │   │   ├── create-account.dto.ts
+│   │   ├── edit-profile.dto.ts
+│   │   ├── login.dto.ts
+│   │   ├── user-profile.dto.ts
 │   ├── entities/
 │   │   ├── user.entity.ts
 │   ├── users.module.ts
