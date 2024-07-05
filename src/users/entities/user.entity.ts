@@ -10,7 +10,7 @@ import { CoreEntity } from "src/common/entities/core.entity";
 import { BeforeInsert, BeforeUpdate, Column, Entity } from "typeorm";
 import * as bcrypt from "bcrypt";
 
-enum UserRole {
+export enum UserRole {
   HOST = "HOST",
   LISTENER = "LISTENER",
 }
