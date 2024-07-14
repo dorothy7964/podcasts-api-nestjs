@@ -25,10 +25,6 @@ export class PodcastsService {
     @InjectRepository(Podcast) private readonly podcasts: Repository<Podcast>,
   ) {}
 
-  getAllPodcasts(): Promise<Podcast[]> {
-    return this.podcasts.find();
-  }
-
   async createPodcast(
     podcast: CreatePodcastInput,
   ): Promise<CreatePodcastOutput> {
@@ -65,6 +61,19 @@ export class PodcastsService {
       return {
         ok: true,
         podcast,
+      };
+    } catch (error) {
+      return { ok: false, error: "Could not get podcast." };
+    }
+  }
+
+  async getAllPodcasts(): Promise<SearchPodcastOutput> {
+    try {
+      const allPodcast = await this.podcasts.find();
+
+      return {
+        ok: true,
+        allPodcast,
       };
     } catch (error) {
       return { ok: false, error: "Could not get podcast." };

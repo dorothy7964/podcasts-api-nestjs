@@ -12,4 +12,7 @@ export class SearchPodcastInput {
 export class SearchPodcastOutput extends PartialType(CoreOutput) {
   @Field(() => Podcast, { nullable: true })
   podcast?: Podcast;
+
+  @Field(() => [Podcast], { nullable: true })
+  allPodcast?: Podcast[];
 }
