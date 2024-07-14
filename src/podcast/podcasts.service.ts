@@ -53,6 +53,8 @@ export class PodcastsService {
   async getPodcast({
     podcastId,
   }: SearchPodcastInput): Promise<SearchPodcastOutput> {
+    //! relations 연결해보기
+    // { relations: ['episodes'] },
     try {
       const podcast = await this.podcasts.findOne({ where: { id: podcastId } });
       if (!podcast) {
@@ -89,10 +91,21 @@ export class PodcastsService {
       if (!podcast) {
         return { ok: false, error: "Podcast Not Found" };
       }
-      await this.podcasts.update(podcastId, { ...updateData });
+
+      //! rating이 범위 조건 추가하기
+
+      await this.podcasts.update(podcastId, {
+        ...updateData,
+      });
+
+      // 업데이트된 데이터를 다시 조회하여 반환
+      const updatedPodcast = await this.podcasts.findOne({
+        where: { id: podcastId },
+      });
 
       return {
         ok: true,
+        podcast: updatedPodcast,
       };
     } catch (error) {
       return { ok: false, error: "Could not update podcast." };

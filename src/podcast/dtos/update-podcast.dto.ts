@@ -2,6 +2,7 @@ import { Field, InputType, ObjectType, PartialType } from "@nestjs/graphql";
 import { IsNumber } from "class-validator";
 import { CoreOutput } from "src/common/dtos/output.dto";
 import { CreatePodcastInput } from "./create-podcast.dto";
+import { Podcast } from "../entities/podcast.entity";
 
 @InputType()
 class UpdatePodcastInputType extends PartialType(CreatePodcastInput) {}
@@ -17,4 +18,7 @@ export class UpdatePodcastInput {
 }
 
 @ObjectType()
-export class UpdatePodcastOutput extends PartialType(CoreOutput) {}
+export class UpdatePodcastOutput extends PartialType(CoreOutput) {
+  @Field(() => Podcast, { nullable: true })
+  podcast?: Podcast;
+}
