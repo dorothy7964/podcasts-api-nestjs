@@ -1,4 +1,11 @@
-import { InputType, ObjectType, PartialType, PickType } from "@nestjs/graphql";
+import {
+  Field,
+  InputType,
+  Int,
+  ObjectType,
+  PartialType,
+  PickType,
+} from "@nestjs/graphql";
 import { CoreOutput } from "src/common/dtos/output.dto";
 import { Podcast } from "../entities/podcast.entity";
 
@@ -10,4 +17,7 @@ export class CreatePodcastInput extends PickType(Podcast, [
 ]) {}
 
 @ObjectType()
-export class CreatePodcastOutput extends PartialType(CoreOutput) {}
+export class CreatePodcastOutput extends PartialType(CoreOutput) {
+  @Field(() => Int, { nullable: true })
+  id?: number;
+}

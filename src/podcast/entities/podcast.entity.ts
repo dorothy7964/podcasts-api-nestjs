@@ -19,7 +19,7 @@ export class Podcast extends CoreEntity {
   category: string;
 
   @Column()
-  @Field(() => Number)
+  @Field(() => Number, { defaultValue: 0 })
   @IsNumber()
   rating?: number;
 
