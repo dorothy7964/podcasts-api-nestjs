@@ -33,12 +33,22 @@ export class PodcastsService {
     podcast: CreatePodcastInput,
   ): Promise<CreatePodcastOutput> {
     try {
-      const newPodcast = {
+      // 입력 데이터 유효성 검사
+      if (!podcast.title || !podcast.category) {
+        return { ok: false, error: "Title and category are required." };
+      }
+
+      // 새로운 팟캐스트 객체 생성
+      const newPodcast = this.podcasts.create({
         ...podcast,
         episodes: [],
-      };
-      await this.podcasts.save(newPodcast);
-      return { ok: true };
+      });
+
+      // 데이터베이스에 팟캐스트 저장
+      const savedPodcast = await this.podcasts.save(newPodcast);
+
+      // 성공적으로 저장된 경우
+      return { ok: true, id: savedPodcast.id };
     } catch (error) {
       return { ok: false, error: "Couldn`t create podcast" };
     }
