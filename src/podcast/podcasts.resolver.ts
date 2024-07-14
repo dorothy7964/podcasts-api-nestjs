@@ -23,7 +23,7 @@ export class PodcastResolver {
   constructor(private readonly podcastsService: PodcastsService) {}
 
   @Query(() => [Podcast])
-  podcasts(): Promise<Podcast[]> {
+  podcasts(): Promise<SearchPodcastOutput> {
     return this.podcastsService.getAllPodcasts();
   }
 
