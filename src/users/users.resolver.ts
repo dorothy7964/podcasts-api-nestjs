@@ -9,7 +9,7 @@ import { LoginInput, LoginOutput } from "./dtos/login.dto";
 import { UseGuards } from "@nestjs/common";
 import { AuthGuard } from "src/auth/auth.guard";
 import { AuthUser } from "src/auth/auth-user.decorator";
-import { UserProfileInput } from "./dtos/user-profile.dto";
+import { UserProfileInput, UserProfileOutput } from "./dtos/user-profile.dto";
 import { EditProfileInput, EditProfileOutput } from "./dtos/edit-profile.dto";
 
 @Resolver(() => User)
@@ -22,7 +22,7 @@ export class UsersResolver {
     return authUser;
   }
 
-  @Query(() => User)
+  @Query(() => UserProfileOutput)
   seeProfile(@Args() { userId }: UserProfileInput) {
     return this.usersService.findById(userId);
   }
