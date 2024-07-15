@@ -23,6 +23,7 @@ export class UsersResolver {
   }
 
   @Query(() => UserProfileOutput)
+  @UseGuards(AuthGuard)
   seeProfile(@Args() { userId }: UserProfileInput) {
     return this.usersService.findById(userId);
   }
