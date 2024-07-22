@@ -4,7 +4,7 @@ import { CoreEntity } from "src/common/entities/core.entity";
 import { Podcast } from "src/podcast/entities/podcast.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 
-@InputType("EpisodeInput", { isAbstract: true })
+@InputType("EpisodeInputType", { isAbstract: true })
 @ObjectType()
 @Entity()
 export class Episode extends CoreEntity {

@@ -21,7 +21,7 @@ registerEnumType(UserRole, {
     "Host = 유저는 Podcast를 만들어서 Episode를 업로드, LISTENER = 유저들이 팟캐스트를 구독하여 에피소드를 청취 가능 ",
 });
 
-@InputType({ isAbstract: true })
+@InputType("UserInputType", { isAbstract: true })
 @ObjectType()
 @Entity()
 export class User extends CoreEntity {
