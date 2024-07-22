@@ -11,18 +11,21 @@ import { LoginInput, LoginOutput } from "./dtos/login.dto";
 import { UserProfileInput, UserProfileOutput } from "./dtos/user-profile.dto";
 import { User } from "./entities/user.entity";
 import { UsersService } from "./users.service";
+import { Role } from "src/auth/role.decorator";
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => User)
+  @Role(["Any"])
   @UseGuards(AuthGuard)
   me(@AuthUser() authUser: User) {
     return authUser;
   }
 
   @Query(() => UserProfileOutput)
+  @Role(["Any"])
   @UseGuards(AuthGuard)
   seeProfile(@Args() { userId }: UserProfileInput) {
     return this.usersService.findById(userId);
@@ -39,6 +42,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => EditProfileOutput)
+  @Role(["Any"])
   @UseGuards(AuthGuard)
   async editProfile(
     @AuthUser() authUser: User,

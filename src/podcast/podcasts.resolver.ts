@@ -17,17 +17,20 @@ import {
 } from "./dtos/update-podcast.dto";
 import { Podcast } from "./entities/podcast.entity";
 import { PodcastsService } from "./podcasts.service";
+import { Role } from "src/auth/role.decorator";
 
 @Resolver(() => Podcast)
 export class PodcastResolver {
   constructor(private readonly podcastsService: PodcastsService) {}
 
   @Query(() => [Podcast])
+  @Role(["Any"])
   podcasts(): Promise<SearchPodcastOutput> {
     return this.podcastsService.getAllPodcasts();
   }
 
   @Mutation(() => CreatePodcastOutput)
+  @Role(["HOST"])
   createPodcast(
     @Args("input") createPodcastInput: CreatePodcastInput,
   ): Promise<CreatePodcastOutput> {
@@ -35,6 +38,7 @@ export class PodcastResolver {
   }
 
   @Query(() => SearchPodcastOutput)
+  @Role(["Any"])
   getPodcast(
     @Args() searchPodcastInput: SearchPodcastInput,
   ): Promise<SearchPodcastOutput> {
@@ -42,6 +46,7 @@ export class PodcastResolver {
   }
 
   @Mutation(() => UpdatePodcastOutput)
+  @Role(["HOST"])
   updatePodcast(
     @Args("input") updatePodcastInput: UpdatePodcastInput,
   ): Promise<UpdatePodcastOutput> {
@@ -49,6 +54,7 @@ export class PodcastResolver {
   }
 
   @Mutation(() => DeletePodcastOutput)
+  @Role(["HOST"])
   deletePodcast(
     @Args() deletePodcastInput: DeletePodcastInput,
   ): Promise<DeletePodcastOutput> {
